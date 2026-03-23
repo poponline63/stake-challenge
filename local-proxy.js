@@ -5,7 +5,7 @@ const { SocksClient } = require('socks');
 
 const LOCAL_PORT = 1090;
 const NORD = {
-  host: process.env.NORD_HOST || 'amsterdam.nl.socks.nordhold.net',
+  host: process.env.NORD_HOST || 'ca-us.socks.nordhold.net',
   port: parseInt(process.env.NORD_PORT) || 1080,
   type: 5,
   userId: process.env.NORD_USER,

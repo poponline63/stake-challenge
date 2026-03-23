@@ -4,7 +4,7 @@ const http = require('http');
 const net = require('net');
 const { SocksClient } = require('socks');
 
-const NORD_HOST = process.env.NORD_HOST || 'amsterdam.nl.socks.nordhold.net';
+const NORD_HOST = process.env.NORD_HOST || 'ca-us.socks.nordhold.net';
 const NORD_PORT = parseInt(process.env.NORD_PORT) || 1080;
 const NORD_USER = process.env.NORD_USER;
 const NORD_PASS = process.env.NORD_PASS;
