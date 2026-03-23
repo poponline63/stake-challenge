@@ -1059,8 +1059,10 @@ function updateHistory() {
     return;
   }
   log.innerHTML = state.history.slice(0, 100).map(e => {
-    const isWin = e.includes('✅');
-    return `<div class="history-entry" style="border-left:3px solid ${isWin ? 'var(--green)' : 'var(--red)'};">${e}</div>`;
+    // Handle both string entries (from UI) and object entries (from bot.js)
+    const text = typeof e === 'string' ? e : `Day ${e.day}: ${e.game} — $${e.betAmount} (${e.betLabel}) — ${e.won ? '✅ WIN' : '❌ LOSS'}`;
+    const isWin = typeof e === 'string' ? e.includes('✅') : e.won;
+    return `<div class="history-entry" style="border-left:3px solid ${isWin ? 'var(--green)' : 'var(--red)'};">${text}</div>`;
   }).join('');
 }
 
