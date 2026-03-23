@@ -411,39 +411,42 @@
     width: 100%;
   }
   
-  /* Stats sidebar → compact vertical block at top */
+  /* Stats → single compact row at top */
   body.record-mode aside:first-of-type {
     width: 100% !important;
     flex: none !important;
-    padding: 30px 24px 16px !important;
+    padding: 16px 20px 12px !important;
     border-right: none !important;
     border-bottom: 1px solid rgba(255,255,255,0.08) !important;
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
-    gap: 12px !important;
+    justify-content: center !important;
+    gap: 10px !important;
   }
-  /* Title bigger for TikTok */
+  /* Title compact */
   body.record-mode aside:first-of-type h1 {
-    font-size: 32px !important;
-    letter-spacing: 6px !important;
+    font-size: 22px !important;
+    letter-spacing: 4px !important;
   }
-  /* Day + Bankroll side by side */
+  body.record-mode aside:first-of-type .text-center p { font-size: 9px !important; }
+  /* Day + Bankroll inline and small */
   body.record-mode aside:first-of-type .card {
-    padding: 10px 24px !important;
+    padding: 4px 14px !important;
     margin: 0 !important;
   }
-  body.record-mode aside:first-of-type .card .text-4xl { font-size: 2.5rem !important; }
-  body.record-mode aside:first-of-type .card .bankroll-value { font-size: 3rem !important; }
-  /* Stat grid: 4 items in a row */
+  body.record-mode aside:first-of-type .card .text-4xl { font-size: 1.4rem !important; }
+  body.record-mode aside:first-of-type .card .bankroll-value { font-size: 1.6rem !important; }
+  body.record-mode aside:first-of-type .card .text-xs { font-size: 8px !important; }
+  /* Stat grid: inline row */
   body.record-mode aside:first-of-type .grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 8px !important;
-    width: 100% !important;
-    max-width: 900px !important;
+    display: flex !important;
+    gap: 6px !important;
   }
-  body.record-mode aside:first-of-type .grid .card { padding: 8px 12px !important; }
+  body.record-mode aside:first-of-type .grid .card { padding: 4px 10px !important; }
+  body.record-mode aside:first-of-type .grid .text-sm { font-size: 11px !important; }
+  body.record-mode aside:first-of-type .grid .text-\[10px\] { font-size: 7px !important; }
   /* Hide all action buttons */
   body.record-mode aside:first-of-type .btn-gold,
   body.record-mode aside:first-of-type .btn-green,
@@ -452,25 +455,29 @@
   body.record-mode aside:first-of-type .flex-col.gap-2,
   body.record-mode aside:first-of-type .flex.gap-2.mt-auto { display: none !important; }
   
-  /* Wheel fills the rest — big and centered */
+  /* Wheel fills the rest — centered vertically */
   body.record-mode #mainArea {
-    flex: 1 !important;
+    flex: 1 1 auto !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 20px !important;
+    padding: 10px !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
   }
-  /* Big wheel for portrait */
+  /* Wheel sized to fit portrait — leave room for spin btn */
   body.record-mode .wheel-container {
-    width: 580px !important;
-    height: 580px !important;
+    width: min(75vw, 700px) !important;
+    height: min(75vw, 700px) !important;
   }
   body.record-mode .spin-btn {
-    font-size: 28px !important;
-    padding: 20px 64px !important;
-    margin-top: 24px !important;
+    font-size: 24px !important;
+    padding: 16px 56px !important;
+    margin-top: 20px !important;
   }
+  /* Hide the wheel section title if any */
+  body.record-mode #wheelSection { display: contents !important; }
 </style>
 <script>
   if (window.location.search.includes('record')) {
