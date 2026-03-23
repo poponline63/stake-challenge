@@ -842,8 +842,16 @@ function spinWheel() {
     } else {
       spinning = false;
       wheelAngle = targetAngle;
-      currentGame = GAMES[targetIdx];
-      showGameResult(targetIdx);
+      
+      // Determine which segment is ACTUALLY under the pointer (top = -π/2)
+      // Normalize the wheel angle to find which segment is at the pointer position
+      const pointerAngle = -Math.PI / 2;
+      // The angle on the wheel that's at the pointer = pointerAngle - wheelAngle
+      let segAngle = ((pointerAngle - wheelAngle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+      const actualIdx = Math.floor(segAngle / arc) % n;
+      
+      currentGame = GAMES[actualIdx];
+      showGameResult(actualIdx);
       spawnParticles(document.getElementById('wheelContainer'));
     }
   }
