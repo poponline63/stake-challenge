@@ -9,11 +9,30 @@
  *
  * Usage: node bot.js [--day N] [--game GameName] [--dry-run]
  */
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
+const { fork } = require('child_process');
 const { recordWheelSpin } = require('./lib/wheel-recorder');
 const { playGame } = require('./lib/stake-player');
 const { assembleVideo } = require('./lib/video-assembler');
+
+// Auto-start local proxy for VPN routing
+let proxyProcess = null;
+function startProxy() {
+  const proxyFile = path.resolve(__dirname, 'local-proxy.js');
+  if (!fs.existsSync(proxyFile)) return;
+  if (!process.env.NORD_USER || !process.env.NORD_PASS) {
+    console.log('⚠️  No NordVPN creds in .env — skipping proxy');
+    return;
+  }
+  console.log('🔒 Starting VPN proxy...');
+  proxyProcess = fork(proxyFile, [], { silent: true });
+  proxyProcess.on('error', (e) => console.log('Proxy error:', e.message));
+}
+function stopProxy() {
+  if (proxyProcess) { proxyProcess.kill(); proxyProcess = null; }
+}
 
 const STATE_FILE = path.resolve(__dirname, 'state.json');
 
@@ -89,6 +108,10 @@ async function main() {
     console.log('Exiting without changes.');
     process.exit(0);
   }
+
+  // Start VPN proxy for Stake access
+  startProxy();
+  await new Promise(r => setTimeout(r, 2000)); // Give proxy time to start
 
   let gameName, betAmount, betLabel, betPct, wheelVideoPath;
 
@@ -226,9 +249,12 @@ async function main() {
     console.log('💀💀💀 BUSTED! Challenge is over!');
     console.log('Reset state.json to start fresh.\n');
   }
+
+  stopProxy();
 }
 
 main().catch(err => {
   console.error('Fatal error:', err);
+  stopProxy();
   process.exit(1);
 });
