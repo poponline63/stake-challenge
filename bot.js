@@ -180,6 +180,7 @@ async function main() {
       console.log(`   Video: ${gameVideoPath}\n`);
     } catch (error) {
       console.error('❌ Game play failed:', error.message);
+      console.error('   Full error:', error.stack);
       console.log('Continuing with video assembly if wheel recording exists...\n');
       gameResult = { won: false, payout: 0, error: error.message };
     }
