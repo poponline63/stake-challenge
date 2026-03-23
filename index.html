@@ -399,27 +399,58 @@
 </style>
 <!-- Recording mode: ?record strips everything except wheel + spin -->
 <style id="recordModeCSS">
-  /* Hide right sidebar (history) but keep left sidebar (stats) */
+  body.record-mode #bustedOverlay,
+  body.record-mode #modal,
   body.record-mode aside:last-of-type { display: none !important; }
-  /* Hide buttons in left sidebar */
-  body.record-mode aside:first-of-type .btn-gold { display: none !important; }
-  body.record-mode aside:first-of-type .btn-green { display: none !important; }
-  body.record-mode aside:first-of-type .btn-red { display: none !important; }
-  body.record-mode aside:first-of-type .btn-dark { display: none !important; }
-  body.record-mode aside:first-of-type .flex.gap-2:has(.btn-dark) { display: none !important; }
-  body.record-mode aside:first-of-type .flex.gap-2:has(.btn-green) { display: none !important; }
-  body.record-mode #bustedOverlay { display: none !important; }
-  body.record-mode #modal { display: none !important; }
-  body.record-mode .flex-col.lg\:flex-row { display: block !important; }
+  
+  /* Restructure: stats as compact banner on top, wheel below */
+  body.record-mode .flex-col.lg\:flex-row { display: flex !important; flex-direction: column !important; min-height: 100vh; }
+  
+  /* Left sidebar becomes a compact top bar */
+  body.record-mode aside:first-of-type {
+    width: 100% !important;
+    flex: none !important;
+    padding: 12px 16px !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+  /* Title inline */
+  body.record-mode aside:first-of-type .text-center.lg\:text-left { flex: none; }
+  /* Day + Bankroll cards compact */
+  body.record-mode aside:first-of-type .card { padding: 6px 16px !important; margin: 0 !important; }
+  body.record-mode aside:first-of-type .card .text-4xl { font-size: 1.5rem !important; }
+  body.record-mode aside:first-of-type .card .bankroll-value { font-size: 1.8rem !important; }
+  /* Stat grid inline */
+  body.record-mode aside:first-of-type .grid { display: flex !important; gap: 8px !important; }
+  body.record-mode aside:first-of-type .grid .card { padding: 4px 12px !important; }
+  /* Hide all buttons */
+  body.record-mode aside:first-of-type .btn-gold,
+  body.record-mode aside:first-of-type .btn-green,
+  body.record-mode aside:first-of-type .btn-red,
+  body.record-mode aside:first-of-type .btn-dark,
+  body.record-mode aside:first-of-type .flex-col.gap-2,
+  body.record-mode aside:first-of-type .flex.gap-2.mt-auto { display: none !important; }
+  
+  /* Wheel fills remaining space */
   body.record-mode #mainArea {
-    min-height: 100vh;
+    flex: 1 !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 20px !important;
+    padding: 10px !important;
   }
-  
+  /* Scale wheel down slightly to fit */
+  body.record-mode .wheel-container {
+    width: 340px !important;
+    height: 340px !important;
+  }
 </style>
 <script>
   if (window.location.search.includes('record')) {
