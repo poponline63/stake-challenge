@@ -399,7 +399,15 @@
 </style>
 <!-- Recording mode: ?record strips everything except wheel + spin -->
 <style id="recordModeCSS">
-  body.record-mode aside { display: none !important; }
+  /* Hide right sidebar (history) but keep left sidebar (stats) */
+  body.record-mode aside:last-of-type { display: none !important; }
+  /* Hide buttons in left sidebar */
+  body.record-mode aside:first-of-type .btn-gold { display: none !important; }
+  body.record-mode aside:first-of-type .btn-green { display: none !important; }
+  body.record-mode aside:first-of-type .btn-red { display: none !important; }
+  body.record-mode aside:first-of-type .btn-dark { display: none !important; }
+  body.record-mode aside:first-of-type .flex.gap-2:has(.btn-dark) { display: none !important; }
+  body.record-mode aside:first-of-type .flex.gap-2:has(.btn-green) { display: none !important; }
   body.record-mode #bustedOverlay { display: none !important; }
   body.record-mode #modal { display: none !important; }
   body.record-mode .flex-col.lg\:flex-row { display: block !important; }
@@ -411,17 +419,7 @@
     justify-content: center !important;
     padding: 20px !important;
   }
-  body.record-mode #mainArea::before {
-    content: 'STAKE $1 CHALLENGE';
-    display: block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 28px;
-    font-weight: 900;
-    color: #f59e0b;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  
 </style>
 <script>
   if (window.location.search.includes('record')) {
