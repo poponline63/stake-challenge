@@ -11,9 +11,14 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "dotenv": "^17.3.1",
+    "node-fetch": "^2.7.0",
     "playwright": "^1.58.2",
     "playwright-extra": "^4.3.6",
+    "proxy-chain": "^2.7.1",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "rebrowser-playwright": "^1.52.0"
+    "rebrowser-playwright": "^1.52.0",
+    "socks": "^2.8.7",
+    "socks-proxy-agent": "^9.0.0"
   }
 }

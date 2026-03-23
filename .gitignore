@@ -6,3 +6,5 @@ chrome-*/
 *.mp4
 *.png
 *.jpg
+.env
+state.json
