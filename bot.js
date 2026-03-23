@@ -22,8 +22,11 @@ let proxyProcess = null;
 function startProxy() {
   const proxyFile = path.resolve(__dirname, 'local-proxy.js');
   if (!fs.existsSync(proxyFile)) return;
+  if (process.env.USE_PROXY !== 'true') {
+    return; // Using NordVPN app directly, no proxy needed
+  }
   if (!process.env.NORD_USER || !process.env.NORD_PASS) {
-    console.log('⚠️  No NordVPN creds in .env — skipping proxy');
+    console.log('⚠️  USE_PROXY=true but no NordVPN creds in .env — skipping proxy');
     return;
   }
   console.log('🔒 Starting VPN proxy...');
