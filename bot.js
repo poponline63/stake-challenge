@@ -16,6 +16,7 @@ const { fork } = require('child_process');
 const { recordWheelSpin } = require('./lib/wheel-recorder');
 const { playGame } = require('./lib/stake-player');
 const { assembleVideo } = require('./lib/video-assembler');
+const { playBustAnimation } = require('./lib/bust-animation');
 
 // Auto-start local proxy for VPN routing
 let proxyProcess = null;
@@ -102,8 +103,14 @@ async function main() {
   console.log(`📈 ATH: $${state.ath.toFixed(2)}\n`);
 
   if (state.bankroll <= 0) {
-    console.log('💀 Bankroll is $0.00 — Challenge over! Reset state.json to restart.');
-    process.exit(1);
+    console.log('💀 Bankroll was $0.00 — Auto-resetting to $1.00 for new challenge!\n');
+    state.bankroll = 1.00;
+    state.day = 1;
+    state.startBalance = 1.00;
+    state.ath = 1.00;
+    state.history = [];
+    state.balanceHistory = [1.00];
+    saveState(state);
   }
 
   if (flags.dryRun) {
@@ -250,8 +257,14 @@ async function main() {
   console.log('═══════════════════════════════════════\n');
 
   if (state.bankroll <= 0) {
-    console.log('💀💀💀 BUSTED! Challenge is over!');
-    console.log('Reset state.json to start fresh.\n');
+    console.log('💀💀💀 BUSTED! Playing bust animation...\n');
+    try {
+      await playBustAnimation(state.day - 1, state.ath);
+      console.log('🎬 Bust animation recorded!\n');
+    } catch (e) {
+      console.log('Bust animation failed:', e.message);
+    }
+    console.log('Next run will auto-reset to $1.00.\n');
   }
 
   stopProxy();
