@@ -5,7 +5,7 @@ Fully automated pipeline that creates TikTok-ready vertical videos of the Stake 
 ## How It Works
 
 1. **Wheel Spin** — Opens the challenge wheel page, spins for a random game + bet size, screen records everything
-2. **Stake Gameplay** — Opens Stake.us via Playwright + Chrome CDP, navigates to the selected game, sets the bet, plays one round, records gameplay
+2. **Stake Gameplay** — Opens Stake.com via Playwright + Chrome CDP, navigates to the selected game, sets the bet, plays one round, records gameplay
 3. **Video Assembly** — Stitches wheel spin + gameplay into a 1080x1920 (9:16) TikTok video with overlays (bankroll, game name, bet amount, day number)
 4. **State Tracking** — Updates bankroll, day counter, and history in `state.json`
 
